@@ -1,9 +1,10 @@
 const seletores = {
-  carrosselPaginaInicial: '#slider-carousel',
-  menuLogin: '.navbar-nav a[href="/login"]',
-  menuProdutos: '.navbar-nav a[href="/products"]',
-  menuCarrinho: '.navbar-nav a[href="/view_cart"]',
-  menuContato: '.navbar-nav a[href="/contact_us"]'
+  carrosselPaginaInicial: '//div[@id="slider-carousel"]',
+  menuLogin: '//ul[contains(@class, "navbar-nav")]//a[normalize-space()="Signup / Login"]',
+  // O ícone do menu Produtos é um caractere da fonte Material Icons, por isso contains() em vez de igualdade
+  menuProdutos: '//ul[contains(@class, "navbar-nav")]//a[contains(., "Products")]',
+  menuCarrinho: '//ul[contains(@class, "navbar-nav")]//a[normalize-space()="Cart"]',
+  menuContato: '//ul[contains(@class, "navbar-nav")]//a[normalize-space()="Contact us"]'
 }
 
 function acessarPaginaInicial() {
@@ -13,25 +14,25 @@ function acessarPaginaInicial() {
 
 function validarPaginaInicialVisivel() {
   cy.url().should('eq', `${Cypress.config('baseUrl')}/`)
-  cy.get(seletores.carrosselPaginaInicial)
+  cy.xpath(seletores.carrosselPaginaInicial)
     .should('be.visible')
     .and('contain.text', 'Full-Fledged practice website for Automation Engineers')
 }
 
 function acessarLoginECadastro() {
-  cy.get(seletores.menuLogin).click()
+  cy.xpath(seletores.menuLogin).click()
 }
 
 function acessarProdutos() {
-  cy.get(seletores.menuProdutos).click()
+  cy.xpath(seletores.menuProdutos).click()
 }
 
 function acessarCarrinho() {
-  cy.get(seletores.menuCarrinho).click()
+  cy.xpath(seletores.menuCarrinho).click()
 }
 
 function acessarContato() {
-  cy.get(seletores.menuContato).click()
+  cy.xpath(seletores.menuContato).click()
 }
 
 module.exports = {

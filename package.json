@@ -1,7 +1,7 @@
 {
   "name": "pgats-automacao-web-2026",
   "version": "1.0.0",
-  "description": "Automação de testes web (Cypress) do site Automation Exercise - PGATS",
+  "description": "Automação de testes web (Cypress + cypress-xpath) do site Automation Exercise - PGATS",
   "scripts": {
     "cy:open": "cypress open",
     "test": "cypress run",
@@ -9,6 +9,8 @@
   },
   "keywords": [
     "cypress",
+    "xpath",
+    "cypress-xpath",
     "e2e",
     "automation-exercise"
   ],
@@ -16,7 +18,8 @@
   "devDependencies": {
     "@faker-js/faker": "^10.6.0",
     "cypress": "^16.2.0",
-    "cypress-mochawesome-reporter": "^5.0.0"
+    "cypress-mochawesome-reporter": "^5.0.0",
+    "cypress-xpath": "^2.0.1"
   },
   "allowScripts": {
     "cypress@16.2.0": true

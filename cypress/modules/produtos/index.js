@@ -1,31 +1,33 @@
 const seletores = {
-  tituloListagem: '.features_items h2.title',
-  cardsDeProduto: '.features_items .product-image-wrapper',
-  nomeDoProdutoNoCard: '.productinfo p',
-  primeiroVerProduto: '.features_items .choose a[href^="/product_details/"]',
-  campoPesquisa: '#search_product',
-  botaoPesquisar: '#submit_search',
-  detalhes: '.product-information',
-  nomeDoProduto: '.product-information h2',
-  adicionarAoCarrinho: (idProduto) => `.features_items .productinfo a.add-to-cart[data-product-id="${idProduto}"]`,
-  tituloModalAdicionado: '#cartModal .modal-title',
-  botaoContinuarComprando: '#cartModal button.close-modal'
+  tituloListagem: '//div[contains(@class, "features_items")]/h2[contains(@class, "title")]',
+  cardsDeProduto: '//div[contains(@class, "features_items")]//div[@class="product-image-wrapper"]',
+  nomesDosProdutos: '//div[contains(@class, "features_items")]//div[contains(@class, "productinfo")]/p',
+  // O índice global (...)[1] substitui o .first() que a versão CSS precisava
+  primeiroVerProduto: '(//div[contains(@class, "features_items")]//a[starts-with(@href, "/product_details/")])[1]',
+  campoPesquisa: '//input[@id="search_product"]',
+  botaoPesquisar: '//button[@id="submit_search"]',
+  detalhes: '//div[@class="product-information"]',
+  nomeDoProduto: '//div[@class="product-information"]/h2',
+  adicionarAoCarrinho: (idProduto) =>
+    `//div[contains(@class, "features_items")]//div[contains(@class, "productinfo")]/a[@data-product-id="${idProduto}"]`,
+  tituloModalAdicionado: '//div[@id="cartModal"]//h4[contains(@class, "modal-title")]',
+  botaoContinuarComprando: '//div[@id="cartModal"]//button[normalize-space()="Continue Shopping"]'
 }
 
 function validarListagemDeProdutos(titulo = 'All Products') {
   cy.location('pathname').should('eq', '/products')
-  cy.get(seletores.tituloListagem).should('be.visible').and('have.text', titulo)
-  cy.get(seletores.cardsDeProduto).should('have.length.greaterThan', 0)
+  cy.xpath(seletores.tituloListagem).should('be.visible').and('have.text', titulo)
+  cy.xpath(seletores.cardsDeProduto).should('have.length.greaterThan', 0)
 }
 
 function abrirDetalhesDoPrimeiroProduto() {
-  cy.get(seletores.primeiroVerProduto).first().click()
+  cy.xpath(seletores.primeiroVerProduto).click()
 }
 
 function validarDetalhesDoProduto() {
   cy.location('pathname').should('match', /^\/product_details\/\d+$/)
-  cy.get(seletores.nomeDoProduto).should('be.visible').and('not.be.empty')
-  cy.get(seletores.detalhes)
+  cy.xpath(seletores.nomeDoProduto).should('be.visible').and('not.be.empty')
+  cy.xpath(seletores.detalhes)
     .should('contain.text', 'Category:')
     .and('contain.text', 'Rs.')
     .and('contain.text', 'Availability:')
@@ -34,15 +36,14 @@ function validarDetalhesDoProduto() {
 }
 
 function pesquisarProduto(termo) {
-  cy.get(seletores.campoPesquisa).type(termo)
-  cy.get(seletores.botaoPesquisar).click()
+  cy.xpath(seletores.campoPesquisa).type(termo)
+  cy.xpath(seletores.botaoPesquisar).click()
 }
 
 function validarResultadoDaPesquisa(termo) {
-  cy.get(seletores.tituloListagem).should('be.visible').and('have.text', 'Searched Products')
-  cy.get(seletores.cardsDeProduto)
+  cy.xpath(seletores.tituloListagem).should('be.visible').and('have.text', 'Searched Products')
+  cy.xpath(seletores.nomesDosProdutos)
     .should('have.length.greaterThan', 0)
-    .find(seletores.nomeDoProdutoNoCard)
     .each(($nome) => {
       expect($nome.text().toLowerCase()).to.contain(termo.toLowerCase())
     })
@@ -50,10 +51,10 @@ function validarResultadoDaPesquisa(termo) {
 
 function adicionarProdutosAoCarrinho(idsProdutos) {
   idsProdutos.forEach((idProduto) => {
-    cy.get(seletores.adicionarAoCarrinho(idProduto)).click()
-    cy.get(seletores.tituloModalAdicionado).should('be.visible').and('have.text', 'Added!')
-    cy.get(seletores.botaoContinuarComprando).click()
-    cy.get(seletores.tituloModalAdicionado).should('not.be.visible')
+    cy.xpath(seletores.adicionarAoCarrinho(idProduto)).click()
+    cy.xpath(seletores.tituloModalAdicionado).should('be.visible').and('have.text', 'Added!')
+    cy.xpath(seletores.botaoContinuarComprando).click()
+    cy.xpath(seletores.tituloModalAdicionado).should('not.be.visible')
   })
 }
 
