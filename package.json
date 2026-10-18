@@ -1,0 +1,26 @@
+{
+  "name": "pgats-automacao-web-2026",
+  "version": "1.0.0",
+  "description": "Automação de testes web (Cypress) do site Automation Exercise - PGATS",
+  "scripts": {
+    "cy:open": "cypress open",
+    "test": "cypress run",
+    "test:chrome": "cypress run --browser chrome"
+  },
+  "keywords": [
+    "cypress",
+    "e2e",
+    "automation-exercise"
+  ],
+  "type": "commonjs",
+  "devDependencies": {
+    "@faker-js/faker": "^10.6.0",
+    "cypress": "^16.2.0",
+    "cypress-mochawesome-reporter": "^5.0.0"
+  },
+  "allowScripts": {
+    "cypress@16.2.0": true
+  },
+  "author": "JoaoVRBastos",
+  "license": "ISC"
+}

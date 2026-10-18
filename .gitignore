@@ -1,0 +1,7 @@
+node_modules/
+
+# Artefatos gerados pelo Cypress
+cypress/screenshots/
+cypress/videos/
+cypress/downloads/
+cypress/reports/

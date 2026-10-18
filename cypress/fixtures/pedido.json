@@ -1,0 +1,11 @@
+{
+  "produtos": [1, 2],
+  "comentario": "Pedido criado pela automação de testes (PGATS).",
+  "cartao": {
+    "nome": "PGATS Automacao",
+    "numero": "4111111111111111",
+    "cvc": "123",
+    "mesValidade": "12",
+    "anoValidade": "2030"
+  }
+}
