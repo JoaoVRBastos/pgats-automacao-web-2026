@@ -14,6 +14,7 @@ O que foi feito:
 2. Instalado o `cypress-xpath` e registrado o comando `cy.xpath()` em `cypress/support/e2e.js`.
 3. **Todos** os seletores dos módulos foram convertidos para XPath, trocando `cy.get()` por `cy.xpath()`.
 4. Comparadas as duas versões em legibilidade e velocidade de execução (veja [Comparativo CSS x XPath](#comparativo-css-x-xpath)).
+5. Criada a spec de entrega `automation-exercise-xpath.cy.js`, autocontida: os mesmos 11 casos com todos os seletores XPath no próprio arquivo, sem depender dos módulos, fixtures ou Faker. Ela roda em qualquer projeto Cypress que tenha o `cypress-xpath` registrado no support.
 
 O diff completo da adaptação está no commit [Adapta seletores para XPath com cypress-xpath](https://github.com/JoaoVRBastos/pgats-automacao-web-2026/commit/c9c7d33).
 
@@ -50,7 +51,8 @@ Os cenários que precisam de um usuário já existente (02, 04, 05 e 16) criam a
 ```
 cypress/
 ├── e2e/
-│   └── automation-exercise.cy.js   # cenários: só orquestram as ações de negócio
+│   ├── automation-exercise.cy.js        # cenários: só orquestram as ações de negócio
+│   └── automation-exercise-xpath.cy.js  # spec de entrega: autocontida, seletores XPath no arquivo
 ├── fixtures/
 │   ├── pedido.json                 # produtos, comentário e cartão de teste do checkout
 │   └── anexo-contato.txt           # arquivo enviado no formulário de contato
@@ -68,7 +70,7 @@ cypress/
     └── e2e.js                      # registra cypress-xpath e o reporter
 ```
 
-Cada módulo concentra seus seletores em uma constante `seletores`, e a spec não conhece nenhum seletor nem faz asserções diretamente.
+Na spec modular (`automation-exercise.cy.js`), cada módulo concentra seus seletores em uma constante `seletores`, e a spec não conhece nenhum seletor nem faz asserções diretamente. A spec de entrega (`automation-exercise-xpath.cy.js`) reúne tudo em um único arquivo para poder ser enviada sozinha.
 
 ## Como executar
 

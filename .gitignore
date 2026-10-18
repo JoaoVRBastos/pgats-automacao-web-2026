@@ -5,3 +5,6 @@ cypress/screenshots/
 cypress/videos/
 cypress/downloads/
 cypress/reports/
+
+# Pacote de entrega da atividade (gerado localmente)
+entrega/
